@@ -1,11 +1,15 @@
 package com.rest.live.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rest.live.domain.BaseTimeEntity;
-import com.rest.live.domain.follow.Follower;
-import com.rest.live.domain.follow.Following;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -34,12 +38,6 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "following_user_id", fetch = FetchType.EAGER)
-    private List<Following> following;
-
-//    @OneToMany(mappedBy = "follower_user_id", fetch = FetchType.EAGER)
-//    private List<Follower> follower;
-
     @Builder
     public User(String name, String email, String password, String phone, Address address, Role role) {
         this.name = name;
@@ -56,4 +54,5 @@ public class User extends BaseTimeEntity {
                 this.email + ", phone: " + this.phone + ", address: " +
                 this.address.toString();
     }
+
 }
