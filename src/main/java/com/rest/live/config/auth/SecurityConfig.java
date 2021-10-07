@@ -26,25 +26,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
                 .csrf().disable()
-                .headers().frameOptions().disable()
-                .and()
-                .authorizeRequests()
-                // 페이지 권한 설정
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                .antMatchers("/**").permitAll()
-//            .and()
-//                .formLogin()
-//                .loginPage("/user/denied")
-//                .permitAll()
-            .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .invalidateHttpSession(true)
-            .and()
-                .exceptionHandling().accessDeniedPage("/user/denied");
+                .headers().frameOptions().disable();
     }
 
     @Override
